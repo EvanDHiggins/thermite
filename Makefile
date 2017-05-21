@@ -19,7 +19,7 @@ clean:
 	cargo clean
 
 run: iso
-	qemu-system-x86_64 -d int -cdrom $(iso)
+	qemu-system-x86_64 -cdrom $(iso)
 
 iso: $(iso)
 
@@ -31,10 +31,10 @@ $(iso): $(kernel) $(grub_cfg)
 
 
 $(kernel): kernel $(assembly_object_files) $(linker_script)
-	ld --no-gc-sections -m elf_x86_64 -n -T $(linker_script) -o $(kernel) $(assembly_object_files) $(rust_kernel)
+	ld -gc-sections -m elf_x86_64 -n -T $(linker_script) -o $(kernel) $(assembly_object_files) $(rust_kernel)
 
 kernel:
-	xargo build --target=$(target) --verbose
+	xargo build --target=$(target)
 
 target/arch/$(arch)/%.o: src/arch/$(arch)/%.asm
 	mkdir -p $(shell dirname $@)
