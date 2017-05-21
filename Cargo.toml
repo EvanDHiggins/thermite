@@ -1,5 +1,5 @@
 [package]
-name = "my_os"
+name = "thermite"
 version = "0.1.0"
 authors = ["Evan Higgins <evan.higgins06@gmail.com>"]
 
