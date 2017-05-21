@@ -5,6 +5,11 @@ low level OS development. I don't expect much to come of it.
 For now I'm only targeting x86_64, and the core of the kernel
 is implemented in [Rust](https://rust-lang.org).
 
+Thermite is a fast burning mixture of iron oxide (rust) and
+aluminum powder. This kernel is Rust on "bare metal" (there's
+aluminum in your computer somewhere), and it rapidly burns
+CPU cycles.
+
 # Build
 To build Thermite as a .iso on Ubuntu:
 
