@@ -1,0 +1,10 @@
+[package]
+name = "my_os"
+version = "0.1.0"
+authors = ["Evan Higgins <evan.higgins06@gmail.com>"]
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+rlibc = "1.0"
