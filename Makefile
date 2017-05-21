@@ -31,7 +31,7 @@ $(iso): $(kernel) $(grub_cfg)
 
 
 $(kernel): kernel $(assembly_object_files) $(linker_script)
-	ld --no-gc-sections -m elf_x86_64 -n -T $(linker_script) -o $(kernel) $(assembly_object_files)
+	ld --no-gc-sections -m elf_x86_64 -n -T $(linker_script) -o $(kernel) $(assembly_object_files) $(rust_kernel)
 
 kernel:
 	xargo build --target=$(target) --verbose

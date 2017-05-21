@@ -4,10 +4,12 @@
 
 #[no_mangle]
 pub extern "C" fn rust_main() {
-    unsafe {*(0xb8000 as *mut _) = 0x0146;}
-    unsafe {*(0xb8001 as *mut _) = 0x0146;}
-    unsafe {*(0xb8002 as *mut _) = 0x0146;}
-    unsafe {*(0xb8003 as *mut _) = 0x0146;}
+    unsafe {*(0xb8000 as *mut _) = 0x0A52;}
+    unsafe {*(0xb8002 as *mut _) = 0x0A55;}
+    unsafe {*(0xb8004 as *mut _) = 0x0A53;}
+    unsafe {*(0xb8006 as *mut _) = 0x0A54;}
+
+    loop {}
 }
 
 
