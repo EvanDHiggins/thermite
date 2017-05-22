@@ -34,7 +34,6 @@ _start:
 
     ; Set up stack pointer
     mov esp, stack_top
-    mov dword [0xb8000], 0x0145
 
     jmp long_mode_init
 
@@ -42,11 +41,6 @@ _start:
 .end:
 
 long_mode_init:
-    
-    mov dword [0xb8002], 0x0F45
-    mov dword [0xb8004], 0x0F44
-    mov dword [0xb8006], 0x0F43
-    mov dword [0xb8008], 0x0F42
     
     call detect_cpuid
     call detect_long_mode
@@ -203,11 +197,3 @@ gdt64:
 .pointer:
     dw .pointer - gdt64 - 1
     dq gdt64
-
-section .text
-bits 64
-long_mode_start:
-    mov rax, 0x2f592f412f4b2f4f
-    mov qword [0xb8000], rax
-
-    hlt
