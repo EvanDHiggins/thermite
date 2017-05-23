@@ -6,15 +6,19 @@
 extern crate rlibc;
 extern crate spin;
 extern crate volatile;
+extern crate multiboot2;
 
 #[macro_use]
 mod vga_buffer;
 
 
 #[no_mangle]
-pub extern "C" fn rust_main() {
+pub extern "C" fn rust_main(multiboot_information_address: usize) {
     vga_buffer::clear_screen();
-    println!("Hello, World!");
+    println!("multiboot_information_address: 0x{:x}", multiboot_information_address);
+
+    let boot_info = unsafe{multiboot2::load(multiboot_information_address)};
+
     loop {}
 }
 

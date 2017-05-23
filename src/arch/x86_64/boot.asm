@@ -29,16 +29,19 @@ stack_top:
 
 
 section .text
-global _start:function (_start.end - _start)
+global _start
 _start:
-
     ; Set up stack pointer
     mov esp, stack_top
+
+    ; Multiboot information structure is passed in via ebx.
+    ; We place it in edi so it can be passed to rust_main
+    mov edi, ebx
+    
 
     jmp long_mode_init
 
     hlt
-.end:
 
 long_mode_init:
     
