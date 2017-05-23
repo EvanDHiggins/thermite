@@ -1,35 +1,9 @@
 extern rust_main
-
-MBALIGN  equ  1<<0              ; align modules on page (4KiB) boundaries
-MEMINFO  equ  1<<1              ; provide memory map
-FLAGS    equ  MBALIGN | MEMINFO ; Multiboot flags
-MAGIC    equ  0x1BADB002        ; Multiboot magic value
-CHECKSUM equ  -(MAGIC + FLAGS)  ; CHECKSUM must sum to 0 with FLAGS and MAGIC
-
-bits 32
-
-section .multiboot
-align 4
-    dd MAGIC
-    dd FLAGS
-    dd CHECKSUM
-
-
-section .bss
-align 4096
-p4_table:
-resb 4096
-p3_table:
-resb 4096
-p2_table:
-resb 4096
-stack_bottom:
-resb 16384
-stack_top:
+global _start
 
 
 section .text
-global _start
+bits 32
 _start:
     ; Set up stack pointer
     mov esp, stack_top
@@ -187,6 +161,18 @@ error:
     xor eax, 0x0F00
     mov dword [0xb8006], eax
     hlt
+
+section .bss
+align 4096
+p4_table:
+resb 4096
+p3_table:
+resb 4096
+p2_table:
+resb 4096
+stack_bottom:
+resb 16384
+stack_top:
     
 ; Global Descriptor Table
 ; Not used in long mode, but it is still required to be set up

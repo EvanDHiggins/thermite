@@ -6,7 +6,7 @@ SECTIONS
 
     .rodata :
     {
-        KEEP(*(.multiboot))
+        KEEP(*(.multiboot_header))
         *(.rodata .rodata.*)
         . = ALIGN(4K);
     }
