@@ -10,6 +10,11 @@ aluminum powder. This kernel is Rust on "bare metal" (there's
 aluminum in your computer somewhere), and it rapidly burns
 CPU cycles.
 
+Most of the work so far is courtesy of [Phil Opperman's Blog](https://os.phil-opp.com)
+series about Rust kernel development. As well as the
+[intermezzOS](https://intermezzos.github.io) Rust kernel tutorial,
+and the [OSDev Wiki](http://wiki.osdev.org).
+
 # Build
 To build Thermite as a .iso on Ubuntu:
 
