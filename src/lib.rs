@@ -11,6 +11,9 @@ extern crate multiboot2;
 #[macro_use]
 mod vga_buffer;
 
+mod memory;
+use memory::FrameAllocater;
+
 
 #[no_mangle]
 pub extern "C" fn rust_main(multiboot_information_address: usize) {
@@ -32,9 +35,37 @@ pub extern "C" fn rust_main(multiboot_information_address: usize) {
 
     println!("kernel sections:");
     for section in elf_sections_tag.sections() {
-        println!("    addr: 0x{:x}, size: 0x{:x}, flags: 0x{:x}",
+        println!("    addr: 0x{:x}, size: 0x{:x}, flags: 0b{:b}",
                  section.addr, section.size, section.flags);
     }
+
+    let kernel_start = elf_sections_tag.sections().map(|s| s.addr)
+        .min().unwrap();
+
+    let kernel_end = elf_sections_tag.sections().map(|s| s.addr)
+        .max().unwrap();
+
+    let multiboot_start = multiboot_information_address;
+    let multiboot_end = multiboot_start + (boot_info.total_size as usize);
+
+    println!("kernel_start: 0x{:x}, kernel_end: 0x{:x}", kernel_start, kernel_end);
+    println!("multiboot_start: 0x{:x}, multiboot_end: 0x{:x}", 
+             multiboot_start, multiboot_end);
+
+    let mut frame_allocater = memory::AreaFrameAllocater::new(
+        kernel_start as usize,
+        kernel_end as usize,
+        multiboot_start,
+        multiboot_end,
+        memory_map_tag.memory_areas());
+
+    for i in 0.. {
+        if let None = frame_allocater.allocate_frame() {
+            println!("allocated {} frames", i);
+            break;
+        }
+    }
+
 
     loop {}
 }
