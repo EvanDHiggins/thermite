@@ -91,6 +91,11 @@ init_page_tables:
     cmp ecx, 512
     jne .init_p2_table
 
+    ; Configure recursive mapping in last entry of P4
+    mov eax, p4_table
+    or eax, 0b11 ; present + writable
+    mov [p4_table + 511 * 8], eax
+
     ret
     
 

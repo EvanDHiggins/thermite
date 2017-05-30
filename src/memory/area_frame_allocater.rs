@@ -1,9 +1,6 @@
 use memory::{Frame, FrameAllocater};
 use multiboot2::{MemoryAreaIter, MemoryArea};
 
-#[macro_use]
-use vga_buffer;
-
 pub struct AreaFrameAllocater {
     next_free_frame: Frame,
     current_area: Option<&'static MemoryArea>,
